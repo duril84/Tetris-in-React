@@ -9,6 +9,7 @@ export class Board extends Component {
     position: { X: 0, Y: 0, },
     currentTetromino: randomTetromino(),
     points: 0,
+    gameOver: true,
   }
 
   render() { 
@@ -27,13 +28,15 @@ export class Board extends Component {
     // pobranie początkowych wartości z state
     let { board, position } = this.state;
     // ustawieni pustego tetromino ( zajmujący 1 komórkę mający kolor tła / dlatego go niewidać )
-    const emptyTetromino = tetrominos['E'];
+    position = { X: Math.floor(BOARD_LENGTH/2)-2, Y: 0, };
+    const emptyTetromino = !this.state.gameOver ? tetrominos['E'] : this.state.currentTetromino ;
     // wstawianie pustego tetromino na planszy
     board = this.drawTetromino( board, emptyTetromino, position);
     // aktualizacja state / ustawienie wartości początkowych gry ( w tym pozycję "kursora" na środku górnej krawędzi ) /
     this.setState({
       board,
-      position: { X: Math.floor(BOARD_LENGTH/2)-2, Y: 0, },
+      position,
+      gameOver: false,
     })
   }
  
@@ -134,12 +137,27 @@ export class Board extends Component {
     } )
     // po złączeniu tetromino z planszą usuwane są wiersze zapełnione w całośi (cell='merged')
     board = this.deleteRow(board);
-    // aktualizacja state
-    this.setState({
-      board,
-      position: { X: Math.floor(BOARD_LENGTH/2)-2, Y: 0, }, // ustawienie pozycji wyjściowej dla nowegoklocka
-      currentTetromino: randomTetromino(),  // wylosowanie nowego tetromino
-    })
+    // ustawienie pozycji wyjściowej dla nowegoklocka
+    const position = { X: Math.floor(BOARD_LENGTH/2)-2, Y: 0, };
+    // wylosowanie nowego tetromino
+    const currentTetromino = randomTetromino();
+    const move = { X: 0, Y: 0 };
+    const collided = this.detectCollision( position, move, currentTetromino, board);
+    // Jeśli nowy klocek nie mieści się na planszy następuje koniec gry
+    if ( collided ) {
+      console.log('Game Over');
+      this.setState({
+        gameOver: true,
+      })
+    } else {
+      // aktualizacja state
+      board = this.drawTetromino( board, currentTetromino, position);
+      this.setState({
+        board,
+        position,
+        currentTetromino,
+      })
+    }
   }
 
   //-----------------------------------------------------------------------------------------------{ detectCollision }
