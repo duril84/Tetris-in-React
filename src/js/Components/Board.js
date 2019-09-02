@@ -6,7 +6,7 @@ import { Row } from './Row';
 export class Board extends Component {
   state = { 
     board: [...Array(BOARD_HEIGHT).fill([...Array(BOARD_LENGTH).fill([0,'clear'])])],
-    position: { X: 0, Y: 0, },
+    position: { X: Math.floor(BOARD_LENGTH/2)-2, Y: 0, },
     currentTetromino: randomTetromino(),
     points: 0,
     gameOver: true,
@@ -25,19 +25,56 @@ export class Board extends Component {
 
   //-----------------------------------------------------------------------------------------------{ componentDidMount }
   componentDidMount() {
-    // pobranie początkowych wartości z state
-    let { board, position } = this.state;
-    // ustawieni pustego tetromino ( zajmujący 1 komórkę mający kolor tła / dlatego go niewidać )
-    position = { X: Math.floor(BOARD_LENGTH/2)-2, Y: 0, };
-    const emptyTetromino = !this.state.gameOver ? tetrominos['E'] : this.state.currentTetromino ;
-    // wstawianie pustego tetromino na planszy
-    board = this.drawTetromino( board, emptyTetromino, position);
-    // aktualizacja state / ustawienie wartości początkowych gry ( w tym pozycję "kursora" na środku górnej krawędzi ) /
-    this.setState({
-      board,
-      position,
-      gameOver: false,
-    })
+    if ( this.state.gameOver ) {
+      // pobranie początkowych wartości z state
+      let { board, position } = this.state;
+      // ustawieni pustego tetromino ( zajmujący 1 komórkę mający kolor tła / dlatego go niewidać )
+      position = this.state.position;
+      const emptyTetromino = !this.state.gameOver ? tetrominos['E'] : this.state.currentTetromino ;
+      // wstawianie pustego tetromino na planszy
+      board = this.drawTetromino( board, emptyTetromino, position);
+      // aktualizacja state / ustawienie wartości początkowych gry ( w tym pozycję "kursora" na środku górnej krawędzi ) /
+      this.setState({
+        board,
+        position,
+        gameOver: false,
+      })
+    }
+    // pętla gry
+    // co 1000ms następuje przesunięcie klocka w dół
+    let moveDown = 0;
+    const move = {X: 0, Y:+1};
+    this.gameLoop = setInterval(()=>{
+      const currentTetromino = this.state.currentTetromino;
+      let position = this.state.position;
+      let board = this.state.board;
+      if ( moveDown%10 === 0 ) {
+        // sprawdzenie wystąpienia kolizji
+        const collided = this.detectCollision(position, move, currentTetromino, board);
+        // jeżeli wwstąpiłą kolizja po przesunięciu klocka w dół scalamy go z planszą
+        if ( collided ) {
+          this.mergeTetromino(board);
+        }
+        // jeżeli przy wykonaniu ruchu nie napotkano na kolizję wyświetlamy nową planszę/ robimy aktualizaję state
+        if (!collided) {
+          position = { X: position.X+move.X, Y: position.Y+move.Y, };
+          const newBoard = this.drawTetromino(board,currentTetromino,position);
+          this.setState({
+            currentTetromino,
+            board: newBoard,
+            position,
+          })
+        }
+      }
+      moveDown++;
+      if ( this.state.gameOver ) {
+        clearInterval(this.gameLoop);
+      }
+    }, 100)
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.gameLoop);
   }
  
   //-----------------------------------------------------------------------------------------------{ drawTetromino }
