@@ -1,0 +1,34 @@
+.cell {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px #ddd;
+  &.E {
+    background-color: white;
+  }
+  &.I {
+    background-color: red;
+  }
+  &.T {
+    background-color: blue;
+  }
+  &.S {
+    background-color: yellow;
+  }
+  &.Z {
+    background-color: green;
+  }
+  &.L {
+    background-color: magenta;
+  }
+  &.J {
+    background-color: pink;
+  }
+  &.O {
+    background-color: aqua;
+  }
+}
+
+
+
