@@ -5,10 +5,10 @@ class Button extends Component {
   render() { 
     const code = this.props.code;
    // console.log(code);
-    if ( Number(code) ) {
+    if ( isNumber(code) ) {
       return <button onClick={e => this.buttonFN(code)}> { this.props.children } </button>;
     } else {
-      return <button onClick={e => this.buttonFN(e)}> { this.props.children } </button>;
+      return <button onClick={e => this.buttonFN(e)}> { this.props.children } </button>
     }
   }
   buttonFN = e => {
