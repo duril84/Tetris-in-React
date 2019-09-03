@@ -5,11 +5,11 @@ class Displays extends Component {
   state = {  }
   render() { 
     return (
-      <>
+      <div style={{display: 'flex', flexDirection: 'column'}}>
        <Display title="RECORD" value={this.props.record}/>
        <Display title="POINTS" value={this.props.points}/>
        <Display title="LEVEL" value={this.props.level}/>
-      </>
+      </div>
     );
   }
 }
