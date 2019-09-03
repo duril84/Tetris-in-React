@@ -5,13 +5,26 @@ class Buttons extends Component {
   state = {  }
   render() { 
     return (
-      <> 
-        <Button buttonFN={this.newGame}>NEW GAME</Button>
-        <Button buttonFN={this.moveTetromino} code={37}>LEFT</Button>
-        <Button buttonFN={this.moveTetromino} code={39}>RIGHT</Button>
-        <Button buttonFN={this.moveTetromino} code={38}>ROTATE</Button>
-        <Button buttonFN={this.moveTetromino} code={40}>DOWN</Button>
-      </>
+      <div className="buttons"> 
+        <div>
+          <Button className="button options" buttonFN={this.newGame}>NEW GAME</Button>
+          <Button className="button options" >PAUSE</Button>
+        </div>
+        <div>
+          <div className="move">
+            <div>
+              <Button className="button small" buttonFN={this.moveTetromino} code={37}></Button>
+              <Button className="button small" buttonFN={this.moveTetromino} code={39}></Button>
+            </div>
+            <div>
+              <Button className="button small" buttonFN={this.moveTetromino} code={40}></Button>
+            </div> 
+          </div>
+          <div>
+            <Button className="button big" buttonFN={this.moveTetromino} code={38}></Button>
+          </div>
+        </div>
+      </div>
     );
   }
 

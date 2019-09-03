@@ -1,10 +1,10 @@
 .tetris {
   display: table;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 2rem 1rem 1rem 1rem;
   width: 25rem;
   height: 40rem;
-  border-radius: 1rem;
+  border-radius: 2rem;
   border: 0.25rem solid;
   border-top-color: darken($color-game,15%);
   border-right-color: darken($color-game,15%);
@@ -12,8 +12,4 @@
   border-left-color: darken($color-game,25%);
   background-color: $color-game;
 
-}
-
-.tetris-top-section {
-  display: flex;
 }

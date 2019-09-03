@@ -3,6 +3,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  font-family: $font-digital;
+  color: $color-board-text;
 
   .title {
     align-items: flex-end;
@@ -11,10 +13,11 @@
   }
 
   .value {
-    width: 80%;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    width: 100%;
     align-items: flex-end;
     text-align: end;
-    font-family: $font-digital;
-    font-size: $font-digital-size; 
+    font-size: $font-digital-size/1.5; 
   }
 }

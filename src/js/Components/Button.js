@@ -6,9 +6,9 @@ class Button extends Component {
     const code = this.props.code;
    // console.log(code);
     if ( Number(code) ) {
-      return <button onClick={e => this.buttonFN(code)}> { this.props.children } </button>;
+      return <div  className={this.props.className} onClick={e => this.buttonFN(code)}>{ this.props.children }</div>;
     } else {
-      return <button onClick={e => this.buttonFN(e)}> { this.props.children } </button>;
+      return <div className={this.props.className} onClick={e => this.buttonFN(e)}>{ this.props.children }</div>;
     }
   }
   buttonFN = e => {

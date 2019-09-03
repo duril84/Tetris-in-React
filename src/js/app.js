@@ -7,7 +7,6 @@ class App extends Component {
   render() { 
     return (
       <>
-        <h1>Tetris-in-React</h1>
         <Game className="game"/>
       </>
     );

@@ -34,6 +34,9 @@ class Cell extends Component {
       console.log(cellColor);
       return (
         <div className={`cell ${cellColor}`} >
+          <div>
+            
+          </div>
         </div>
     );
   }

@@ -1,7 +1,9 @@
 .board {
   padding: 1rem;
-  background-color: black;
+  background-color: $color-board-background;
   border-radius: 1rem;
-  border: 0.05rem solid darken($color-game, 30%);
-  box-shadow: 0rem 0rem 0.5rem black;
+  border: 0.05rem solid $color-board-border;
+  box-shadow: 0rem 0rem 0.5rem $color-board-text;
+  display: flex;
+  justify-content: space-between;
 }
