@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BOARD_HEIGHT, BOARD_LENGTH } from '../initializationVariables';
 import { tetrominos, randomTetromino } from '../tetrominos';
 import { Row } from './Row';
+import Buttons from './Buttons';
 
 export class Board extends Component {
   state = { 
@@ -18,8 +19,13 @@ export class Board extends Component {
     })
     return (
       <div tabIndex="0" onKeyUp={e => this.moveTetromino(e)}>
-        {drawBoard}
-        <button onClick={e => this.newGame(e)}>NOWA GRA</button>
+        <div style={{display: 'table',margin: '0 auto',}}>
+          {drawBoard}
+        </div>
+        
+        <Buttons newGame={e => this.newGame(e)} moveTetromino={e => this.moveTetromino(e)}/>
+        {/* <button onClick = {e => this.newGame(e)} >ng </button>
+        <button onClick = {() => this.moveTetromino(37)} >TEST </button> */}
       </div>
     );
   }
@@ -264,6 +270,14 @@ export class Board extends Component {
   //-----------------------------------------------------------------------------------------------{ moveTetromino }
   // funkcja obsługująca przyciski (przesuwanie lub obracanie tetromino)
   moveTetromino = e => {
+    // dla wprowadzenia sterowania za pomocą przycisków, sprawdzamy czy przekazany argument został przekazany przez
+    // naciśnięcie klawisza czy kliknięcie przycisku
+    let code;
+    if ( typeof e === 'object' ) {
+      code = e.keyCode;
+    } else {
+      code = e;
+    }
     // utworzenie kopi planszy z obecnego state
     const board = [...this.state.board].map( row => {
       return [...row];
@@ -275,7 +289,7 @@ export class Board extends Component {
     // zmienna przechowująca zamierzaną zmianę pozycji
     let move = { X: 0, Y: 0 };
     // obsługa przycisków LEFT / RIGHT / UP / DOWN
-    switch(e.keyCode){
+    switch(code){
       // LEFT KEY
       case 37: 
         move = { X:-1, Y: 0 };
