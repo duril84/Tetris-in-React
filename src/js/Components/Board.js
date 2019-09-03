@@ -13,14 +13,27 @@ export class Board extends Component {
   }
 
   render() { 
-    const listOfRows = Array(BOARD_HEIGHT).fill('').map( (e,index) => {
+    const drawBoard = Array(BOARD_HEIGHT).fill('').map( (e,index) => {
       return <Row key={index} boardLength={BOARD_LENGTH} row={this.state.board[index]}/>
     })
     return (
-      <div tabIndex="0" onKeyUp={e => this.moveTetromino(e)} >
-        {listOfRows}
+      <div tabIndex="0" onKeyUp={e => this.moveTetromino(e)}>
+        {drawBoard}
+        <button onClick={e => this.newGame(e)}>NOWA GRA</button>
       </div>
     );
+  }
+
+  //-----------------------------------------------------------------------------------------------{ resetGame }
+  newGame = e => {
+    this.setState({
+      board: [...Array(BOARD_HEIGHT).fill([...Array(BOARD_LENGTH).fill([0,'clear'])])],
+      position: { X: Math.floor(BOARD_LENGTH/2)-2, Y: -1, },
+      currentTetromino: randomTetromino(),
+      points: 0,
+      gameOver: false,
+    })
+    this.gameLoop();
   }
 
   //-----------------------------------------------------------------------------------------------{ componentDidMount }
@@ -30,21 +43,28 @@ export class Board extends Component {
       let { board, position } = this.state;
       // ustawieni pustego tetromino ( zajmujący 1 komórkę mający kolor tła / dlatego go niewidać )
       position = this.state.position;
-      const emptyTetromino = !this.state.gameOver ? tetrominos['E'] : this.state.currentTetromino ;
+      const emptyTetromino = tetrominos['E'];
       // wstawianie pustego tetromino na planszy
       board = this.drawTetromino( board, emptyTetromino, position);
       // aktualizacja state / ustawienie wartości początkowych gry ( w tym pozycję "kursora" na środku górnej krawędzi ) /
       this.setState({
         board,
         position,
-        gameOver: false,
+        gameOver: true,
       })
     }
-    // pętla gry
-    // co 1000ms następuje przesunięcie klocka w dół
-    let moveDown = 0;
+  }
+
+  //-----------------------------------------------------------------------------------------------{ componentDidMount }
+  gameLoop = () => {
+    // jeżeli został wcześniej utworzony interval dla pętli gry to go usuwamy
+    if ( this.gameLoopID) {
+      clearInterval(this.gameLoopID);
+    } 
+    let moveDown = 0; // pewnie do usunięcia /przetestować/
     const move = {X: 0, Y:+1};
-    this.gameLoop = setInterval(()=>{
+    // zainiaclizowanie pętli gry (uruchomienie)
+    this.gameLoopID = setInterval(()=>{
       const currentTetromino = this.state.currentTetromino;
       let position = this.state.position;
       let board = this.state.board;
@@ -68,13 +88,17 @@ export class Board extends Component {
       }
       moveDown++;
       if ( this.state.gameOver ) {
-        clearInterval(this.gameLoop);
+        moveDown = 0;
+        clearInterval(this.gameLoopID);
       }
+     // console.log(moveDown);
     }, 100)
   }
+  
 
+  //-----------------------------------------------------------------------------------------------{ componentWillUnmount }
   componentWillUnmount(){
-    clearInterval(this.gameLoop);
+    clearInterval(this.gameLoopID);
   }
  
   //-----------------------------------------------------------------------------------------------{ drawTetromino }
@@ -281,13 +305,16 @@ export class Board extends Component {
     }
     // jeżeli przy wykonaniu ruchu nie napotkano na kolizję wyświetlamy nową planszę/ robimy aktualizaję state
     if (!collided) {
-      position = { X: position.X+move.X, Y: position.Y+move.Y, };
-      const newBoard = this.drawTetromino(board,rotatedTetromino,position);
-      this.setState({
-        currentTetromino: rotatedTetromino,
-        board: newBoard,
-        position,
-      })
+      if (!this.state.gameOver) {
+        position = { X: position.X+move.X, Y: position.Y+move.Y, };
+        const newBoard = this.drawTetromino(board,rotatedTetromino,position);
+        
+        this.setState({
+          currentTetromino: rotatedTetromino,
+          board: newBoard,
+          position,
+        })
+      }
     }
   }
 }
