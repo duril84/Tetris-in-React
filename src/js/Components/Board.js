@@ -3,6 +3,7 @@ import { BOARD_HEIGHT, BOARD_LENGTH } from '../initializationVariables';
 import { tetrominos, randomTetromino } from '../tetrominos';
 import { Row } from './Row';
 import Buttons from './Buttons';
+import Displays from './Displays';
 
 export class Board extends Component {
   state = { 
@@ -10,6 +11,8 @@ export class Board extends Component {
     position: { X: Math.floor(BOARD_LENGTH/2)-2, Y: 0, },
     currentTetromino: randomTetromino(),
     points: 0,
+    level: 0,
+    record: 0,
     gameOver: true,
   }
 
@@ -24,8 +27,7 @@ export class Board extends Component {
         </div>
         
         <Buttons newGame={e => this.newGame(e)} moveTetromino={e => this.moveTetromino(e)}/>
-        {/* <button onClick = {e => this.newGame(e)} >ng </button>
-        <button onClick = {() => this.moveTetromino(37)} >TEST </button> */}
+        <Displays points={this.state.points} level={this.state.level} record={this.state.record} />
       </div>
     );
   }
@@ -37,6 +39,7 @@ export class Board extends Component {
       position: { X: Math.floor(BOARD_LENGTH/2)-2, Y: -1, },
       currentTetromino: randomTetromino(),
       points: 0,
+      level: 0,
       gameOver: false,
     })
     this.gameLoop();
