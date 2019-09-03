@@ -11,7 +11,7 @@ export class Tetris extends Component {
     position: { X: Math.floor(BOARD_LENGTH/2)-2, Y: 0, },
     currentTetromino: randomTetromino(),
     points: 0,
-    level: 0,
+    level: 1,
     record: 0,
     gameOver: true,
   }
@@ -37,7 +37,7 @@ export class Tetris extends Component {
       position: { X: Math.floor(BOARD_LENGTH/2)-2, Y: -1, },
       currentTetromino: randomTetromino(),
       points: 0,
-      level: 0,
+      level: 1,
       gameOver: false,
     })
     this.gameLoop();
@@ -68,38 +68,36 @@ export class Tetris extends Component {
     if ( this.gameLoopID) {
       clearInterval(this.gameLoopID);
     } 
-    let moveDown = 0; // pewnie do usunięcia /przetestować/
+    // zmiana prędkości zależnie od levelu
+    const level = this.state.level;
+    const speed = 1100 - level*100;
     const move = {X: 0, Y:+1};
     // zainiaclizowanie pętli gry (uruchomienie)
     this.gameLoopID = setInterval(()=>{
       const currentTetromino = this.state.currentTetromino;
       let position = this.state.position;
       let board = this.state.board;
-      if ( moveDown%10 === 0 ) {
-        // sprawdzenie wystąpienia kolizji
-        const collided = this.detectCollision(position, move, currentTetromino, board);
-        // jeżeli wwstąpiłą kolizja po przesunięciu klocka w dół scalamy go z planszą
-        if ( collided ) {
-          this.mergeTetromino(board);
-        }
-        // jeżeli przy wykonaniu ruchu nie napotkano na kolizję wyświetlamy nową planszę/ robimy aktualizaję state
-        if (!collided) {
-          position = { X: position.X+move.X, Y: position.Y+move.Y, };
-          const newBoard = this.drawTetromino(board,currentTetromino,position);
-          this.setState({
-            currentTetromino,
-            board: newBoard,
-            position,
-          })
-        }
+      // sprawdzenie wystąpienia kolizji
+      const collided = this.detectCollision(position, move, currentTetromino, board);
+      // jeżeli wwstąpiłą kolizja po przesunięciu klocka w dół scalamy go z planszą
+      if ( collided ) {
+        this.mergeTetromino(board);
       }
-      moveDown++;
+      // jeżeli przy wykonaniu ruchu nie napotkano na kolizję wyświetlamy nową planszę/ robimy aktualizaję state
+      if (!collided) {
+        position = { X: position.X+move.X, Y: position.Y+move.Y, };
+        const newBoard = this.drawTetromino(board,currentTetromino,position);
+        this.setState({
+          currentTetromino,
+          board: newBoard,
+          position,
+        })
+      }
       if ( this.state.gameOver ) {
-        moveDown = 0;
         clearInterval(this.gameLoopID);
       }
      // console.log(moveDown);
-    }, 100)
+    }, speed)
   }
   
 
@@ -168,7 +166,14 @@ export class Tetris extends Component {
     // pobranie listy wierszy do usunięcia
     const rowsToDelete = this.rowsToDelete(board);
     // liczba zdobytyh punktów równa się liczbie usuniętych wierszy
-    const points = rowsToDelete.length;
+    // points = (długość_wiersza) * (2)^(ilość_usuniętych_wierszy) 
+    // points = [ 20 || 40 || 80 || 160 ]
+    const points = this.state.points + board[0].length * Math.pow(2, rowsToDelete.length);
+    let level = this.state.level;
+    // co 250 punktów zwiększamy level
+    if ( Math.floor(points/250) + 1 > level  ) {
+      level++;
+    }
     // jeżeli są wiersze do usunięcia tworzymy nową tablicę wierszy i ją zwracamy
     const newBoard = [];
     if ( rowsToDelete.length > 0 ){
@@ -184,7 +189,8 @@ export class Tetris extends Component {
       }
       // aktualizujemy stan punktów
       this.setState({
-        points: this.state.points + points,
+        points,
+        level,
       })
       // zwracamy nową planszę
       return newBoard;
