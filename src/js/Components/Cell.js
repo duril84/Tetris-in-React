@@ -25,8 +25,6 @@ class Cell extends Component {
         return 'O';
       default:
         return 'E';
-        console.error('Nie ustalono koloru komórki !');
-        break;
     }
   }
 
@@ -42,8 +40,3 @@ class Cell extends Component {
 }
  
 export default Cell;
-
-// style={{
-//   backgroundColor: `${cellColor}`,
-//   borderTopColor: `${cellColor}/2`,
-// }}

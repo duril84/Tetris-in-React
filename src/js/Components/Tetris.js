@@ -18,8 +18,8 @@ export class Tetris extends Component {
 
   render() { 
     return (
-      <div tabIndex="0" onKeyUp={e => this.moveTetromino(e)}>
-        <div style={{display: 'flex',}}>
+      <div tabIndex="0" onKeyUp={e => this.moveTetromino(e)} className="tetris">
+        <div className="tetris-top-section">
           <Board BOARD_HEIGHT={BOARD_HEIGHT} BOARD_LENGTH={BOARD_LENGTH} board={this.state.board} />
           <Displays points={this.state.points} level={this.state.level} record={this.state.record} />
         </div>

@@ -1,11 +1,11 @@
 .cell {
-  width: 20px;
-  height: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 2px 2px 2px #ddd;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid lighten($color-board, 25%);
+  // border-radius: 5px;
+  // box-shadow: 2px 2px 2px #ddd;
   &.E {
-    background-color: white;
+    background-color: lighten($color-board,20%);
   }
   &.I {
     background-color: red;
