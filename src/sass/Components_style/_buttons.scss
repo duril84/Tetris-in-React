@@ -1,0 +1,61 @@
+.buttons {
+  display: flex;
+  flex-direction: column;
+  div {
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    &:nth-child(1) {
+      padding: 0.5rem;
+      justify-content: space-around;
+    }
+  }
+  .move {
+    width: 50%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    div {
+      &:nth-child(1) {
+        padding-bottom: 1rem;
+        justify-content: space-between;
+      }
+      &:nth-child(2) {
+        justify-content: center;
+      }
+    }
+  } 
+
+}
+
+.button{
+  position: relative;
+  text-align: center;
+  font-size: 0.75rem;
+  color: $color-button-border;
+  background-color: $color-game;
+  border: 0.15rem solid $color-button-border;
+  box-shadow: 0rem 0rem 1rem lighten($color-game, 20%);
+
+  &.options {
+    border-radius: 0.75rem;
+    width: 6rem;
+    height: 2rem;
+    display: flex;
+    align-content: center;
+  }
+  
+  &.small {
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  &.big {
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+  }
+
+}

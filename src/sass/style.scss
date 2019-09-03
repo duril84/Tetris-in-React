@@ -1,0 +1,16 @@
+@import './Generic/reset';
+@import './Settings/colors';
+@import './Settings/fonts';
+
+@import './Components_style/app';
+@import './Components_style/game';
+@import './Components_style/tetris';
+
+
+@import './Components_style/board';
+@import './Components_style/cell';
+
+@import './Components_style/displays';
+@import './Components_style/display';
+
+@import './Components_style/buttons';

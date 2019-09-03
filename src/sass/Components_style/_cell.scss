@@ -1,0 +1,52 @@
+.cell {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid $color-board-background;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  div {
+    width: 90%;
+    height: 90%;
+    border: 0.1rem solid $color-board-background;
+    background-color: transparent;
+    box-shadow: 0 0 0 0.1rem transparent;
+  }
+
+  &.E {
+    background-color: $color-board-background;
+    div {
+      width: 90%;
+      height: 90%;
+      border: 0.4rem solid $color-board-background;
+      background-color: darken($color-board-background, 5%);
+      box-shadow: 0 0 0 0.1rem darken($color-board-background, 5%);
+    }
+  }
+  &.I {
+    background-color: #B82601;
+
+  }
+  &.T {
+    background-color: #273F5F;
+  }
+  &.S {
+    background-color: #813772;
+  }
+  &.Z {
+    background-color: #2B823A;
+  }
+  &.L {
+    background-color: #C1F600;
+  }
+  &.J {
+    background-color: #555555;
+  }
+  &.O {
+    background-color: #000000;
+  }
+}
+
+
+

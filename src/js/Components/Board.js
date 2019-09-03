@@ -9,7 +9,7 @@ class Board extends Component {
       return <Row key={index} boardLength={BOARD_LENGTH} row={board[index]}/>
     })
     return (
-      <div style={{display: 'table',margin: '0 auto',}}>
+      <div style={{ padding: '0 1rem 0 0',}}>
         {drawBoard}
       </div>
     );

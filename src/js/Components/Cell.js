@@ -6,41 +6,37 @@ class Cell extends Component {
   getCellColor = (sign) => {
     switch ( sign ) {
       case 0:
-        return 'white';
+        return 'E';
+      case 'E':
+        return 'E';
       case 'I':
-        return 'red';
+        return 'I';
       case 'T':
-        return 'blue';
+        return 'T';
       case 'S':
-        return 'yellow';
+        return 'S';
       case 'Z':
-        return 'green';
+        return 'Z';
       case 'L':
-        return 'magenta';
+        return 'L';
       case 'J':
-        return 'pink';
+        return 'J';
       case 'O':
-        return 'aqua';
+        return 'O';
       default:
-        console.error('Nie ustalono koloru komórki !');
-        break;
+        return 'E';
     }
   }
 
   render() { 
       const { sign } = this.props;
       const cellColor = this.getCellColor(sign);
+      console.log(cellColor);
       return (
-        <div style={{
-          width: '20px',
-          height: '20px',
-          border: '1px solid #ddd',
-          padding: '0px',
-          borderRadius: '5px',
-          boxShadow: '2px 2px 2px #ddd',
-          backgroundColor: `${cellColor}`,
-          borderTopColor: `${cellColor}/2`,
-        }}>
+        <div className={`cell ${cellColor}`} >
+          <div>
+            
+          </div>
         </div>
     );
   }

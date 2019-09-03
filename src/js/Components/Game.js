@@ -5,10 +5,7 @@ class Game extends Component {
   state = {  }
   render() { 
     return (
-      <div style={{
-        display: 'table',
-        margin: '0 auto',
-      }}>
+      <div className="game">
         <Tetris />
       </div>
     );
