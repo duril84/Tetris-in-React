@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Board } from './Board';
+import { Tetris } from './Tetris';
 
 class Game extends Component {
   state = {  }
@@ -9,7 +9,7 @@ class Game extends Component {
         display: 'table',
         margin: '0 auto',
       }}>
-        <Board />
+        <Tetris />
       </div>
     );
   }
