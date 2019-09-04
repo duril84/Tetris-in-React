@@ -9,7 +9,7 @@ class Board extends Component {
       return <Row key={index} boardLength={BOARD_LENGTH} row={board[index]}/>
     })
     return (
-      <div style={{ padding: '0 1rem 0 0',}}>
+      <div className="board-rows">
         {drawBoard}
       </div>
     );

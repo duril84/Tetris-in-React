@@ -1,6 +1,8 @@
+$cell-size: 2.75vh;
+
 .cell {
-  width: 1.5rem;
-  height: 1.5rem;
+  width: $cell-size;
+  height: $cell-size;
   border: 1px solid $color-board-background;
   display: flex;
   justify-content: center;

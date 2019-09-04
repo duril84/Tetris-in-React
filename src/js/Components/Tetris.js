@@ -26,15 +26,13 @@ export class Tetris extends Component {
           <Board BOARD_HEIGHT={BOARD_HEIGHT} BOARD_LENGTH={BOARD_LENGTH} board={this.state.board} />
           <Displays points={this.state.points} level={this.state.level} record={this.state.record} />
         </div>
-        <div>
-          <Buttons
+        <Buttons
             newGame={e => this.newGame(e)}
             moveTetromino={e => this.moveTetromino(e)} 
             pauseGame={e => this.pauseGame(e)}
             isPaused={e => this.isPaused(e)}
             isOver={e => this.isOver(e)}
             />
-        </div>
       </div>
     );
   }

@@ -1,0 +1,39 @@
+.results {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .results-title {
+    width: 100%;
+    font-family: $font-digital;
+    font-size: $font-digital-size*1.25;
+    font-weight: 900;
+    text-align: center;
+    border-bottom: 1px solid $color-board-text;
+  }
+  .results-list { 
+    overflow: auto;
+    scroll-behavior: smooth;
+    .results-item {
+      font-family: $font-digital;  
+      font-size: $font-digital-size*0.7; 
+      display: flex;
+      // justify-content: space-between;
+      align-items: center;
+      .results-id {
+        width: 15%;
+        text-align: end;
+        padding: 0 2rem 0 0;
+
+      }
+      .results-name {
+        width: 55%;
+      }
+      .results-result {
+        text-align: end;
+        width: 30%;
+      }
+    }
+  }
+}

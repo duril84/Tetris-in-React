@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from './Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {NavLink} from "react-router-dom";
 
 class Buttons extends Component {
   state = {  }
@@ -16,14 +17,14 @@ class Buttons extends Component {
           </div>
           <div className="description">
             <h1>OPTIONS</h1>
-            <Button className="button options" ><FontAwesomeIcon icon="bars" /></Button>
+            <NavLink exact to={`/options`}>
+              <Button className="button options" ><FontAwesomeIcon icon="bars" /></Button>
+            </NavLink>
           </div>
           <div className="description">
             <h1>PAUSE</h1>
             <Button className="button options" buttonFN={ !this.isOver() &&  this.pauseGame}><FontAwesomeIcon icon="pause" /></Button>
           </div>
-
-
         </div>
         <div className="buttons bottom-section">
           <div className="left-section">
