@@ -1,9 +1,12 @@
 .game_title {
   width: 100%;
+  height: 10vh;
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-family: $font-game-title;
+  font-size: $font-havy-size;
   color: $color-tetris-text;
 }

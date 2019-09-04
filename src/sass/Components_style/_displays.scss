@@ -1,9 +1,10 @@
 .displays {
-    width: 100%;
+    width: 25vw;
+    height: 100%;
     padding: 1rem 0rem 1rem 1.5rem;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    border-left: 1px solid;
+    border-left: 1px solid $color-board-text;
     /* background-color: transparent; */
 }
