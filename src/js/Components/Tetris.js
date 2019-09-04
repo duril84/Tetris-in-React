@@ -4,6 +4,7 @@ import { tetrominos, randomTetromino } from '../tetrominos';
 import Buttons from './Buttons';
 import Displays from './Displays';
 import Board from './Board';
+import Title from './Title';
 
 export class Tetris extends Component {
   state = { 
@@ -19,6 +20,7 @@ export class Tetris extends Component {
   render() { 
     return (
       <div tabIndex="0" onKeyUp={e => this.moveTetromino(e)} className="tetris">
+        <Title />
         <div className="board">
           <Board BOARD_HEIGHT={BOARD_HEIGHT} BOARD_LENGTH={BOARD_LENGTH} board={this.state.board} />
           <Displays points={this.state.points} level={this.state.level} record={this.state.record} />
