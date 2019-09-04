@@ -1,61 +1,100 @@
-.buttons {
+.buttons { 
   display: flex;
   flex-direction: column;
-  div {
-    padding: 0.5rem;
-    display: flex;
+  padding: 0.5rem;
+  &.top-section {
     flex-direction: row;
-    justify-content: space-between;
-    &:nth-child(1) {
-      padding: 0.5rem;
-      justify-content: space-around;
+    justify-content: space-around;
+    .description {
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      h1 {
+        font-size: 0.75rem;
+        text-align: center;
+        color: white;
+      }
     }
   }
-  .move {
-    width: 50%;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    div {
-      &:nth-child(1) {
-        padding-bottom: 1rem;
+  &.bottom-section {
+    flex-direction: row;
+    justify-content: space-between;
+    .left-section {
+      width: 45%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .move-left-right {
+        width: 100%;
+        display: flex;
         justify-content: space-between;
       }
-      &:nth-child(2) {
-        justify-content: center;
+      .move-down {
+        padding: 1rem;
       }
     }
-  } 
-
+    .right-section {
+      width: 45%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }
 
 .button{
+  padding: 0;
   position: relative;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 0.75rem;
-  color: $color-button-border;
-  background-color: $color-game;
-  border: 0.15rem solid $color-button-border;
-  box-shadow: 0rem 0rem 1rem lighten($color-game, 20%);
+
+  width: $size-button;
+  height: $size-button;
+  border-radius: 50%;
+
+  color: $color-button-gradient-2;
+  background: $color-button-gradient-1;
+ 
+  box-shadow: 0rem 0rem 0.1rem 0.05rem white;
+
+  .button-inner {
+    padding: 0;
+    border-radius: inherit;
+    width: $size-button-inner;
+    height: $size-button-inner;
+    background: $color-button-gradient-2;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .button-icon {
+      color: gray;
+      transform: scale(2);
+    }
+  }
 
   &.options {
     border-radius: 0.75rem;
-    width: 6rem;
-    height: 2rem;
+    transform: scale(1.5,0.5);
     display: flex;
     align-content: center;
+    .button-icon {
+      color: gray;
+      transform: scale(0.75, 2);
+    }
   }
-  
-  &.small {
-    border-radius: 50%;
-    width: 3rem;
-    height: 3rem;
-  }
-  
+ 
   &.big {
     border-radius: 50%;
-    width: 6rem;
-    height: 6rem;
+    transform: scale(2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
 }
