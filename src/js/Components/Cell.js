@@ -31,7 +31,7 @@ class Cell extends Component {
   render() { 
       const { sign } = this.props;
       const cellColor = this.getCellColor(sign);
-      console.log(cellColor);
+      //console.log(cellColor);
       return (
         <div className={`cell ${cellColor}`} >
           <div>

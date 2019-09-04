@@ -15,6 +15,7 @@ export class Tetris extends Component {
     level: 1,
     record: 987654,
     gameOver: true,
+    gamePaused: false,
   }
 
   render() { 
@@ -26,13 +27,19 @@ export class Tetris extends Component {
           <Displays points={this.state.points} level={this.state.level} record={this.state.record} />
         </div>
         <div>
-          <Buttons newGame={e => this.newGame(e)} moveTetromino={e => this.moveTetromino(e)}/>
+          <Buttons
+            newGame={e => this.newGame(e)}
+            moveTetromino={e => this.moveTetromino(e)} 
+            pauseGame={e => this.pauseGame(e)}
+            isPaused={e => this.isPaused(e)}
+            isOver={e => this.isOver(e)}
+            />
         </div>
       </div>
     );
   }
 
-  //-----------------------------------------------------------------------------------------------{ resetGame }
+  //-----------------------------------------------------------------------------------------------{ newGame }
   newGame = e => {
     this.setState({
       board: [...Array(BOARD_HEIGHT).fill([...Array(BOARD_LENGTH).fill([0,'clear'])])],
@@ -41,8 +48,27 @@ export class Tetris extends Component {
       points: 0,
       level: 1,
       gameOver: false,
+      gamePaused: false,
     })
     this.gameLoop();
+  }
+
+  //-----------------------------------------------------------------------------------------------{ pauseGame }
+  pauseGame = e => {
+    this.setState({
+      gamePaused: !this.state.gamePaused,
+    })
+    this.gameLoop();
+  }
+
+  //-----------------------------------------------------------------------------------------------{ isPaused }
+  isPaused = e => {
+    return this.state.gamePaused;
+  }
+
+  //-----------------------------------------------------------------------------------------------{ isOver }
+  isOver = e => {
+    return this.state.gameOver;
   }
 
   //-----------------------------------------------------------------------------------------------{ componentDidMount }
@@ -60,6 +86,7 @@ export class Tetris extends Component {
         board,
         position,
         gameOver: true,
+        gamePaused: false,
       })
     }
   }
@@ -75,7 +102,15 @@ export class Tetris extends Component {
     const speed = 1100 - level*100;
     const move = {X: 0, Y:+1};
     // zainiaclizowanie pętli gry (uruchomienie)
+    
     this.gameLoopID = setInterval(()=>{
+      if ( this.state.gameOver ) {
+        clearInterval(this.gameLoopID);
+      }
+      if ( this.state.gamePaused ) {
+        clearInterval(this.gameLoopID);
+        return null;
+      }
       const currentTetromino = this.state.currentTetromino;
       let position = this.state.position;
       let board = this.state.board;
@@ -95,11 +130,9 @@ export class Tetris extends Component {
           position,
         })
       }
-      if ( this.state.gameOver ) {
-        clearInterval(this.gameLoopID);
-      }
      // console.log(moveDown);
     }, speed)
+    
   }
   
 
@@ -221,7 +254,7 @@ export class Tetris extends Component {
     const collided = this.detectCollision( position, move, currentTetromino, board);
     // Jeśli nowy klocek nie mieści się na planszy następuje koniec gry
     if ( collided ) {
-      console.log('Game Over');
+      //console.log('Game Over');
       this.setState({
         gameOver: true,
       })
@@ -287,6 +320,7 @@ export class Tetris extends Component {
     } else {
       code = e;
     }
+    //console.log(code);
     // utworzenie kopi planszy z obecnego state
     const board = [...this.state.board].map( row => {
       return [...row];
@@ -318,6 +352,11 @@ export class Tetris extends Component {
       case 40: 
         move = {X: 0, Y:+1}
         break;
+
+      // SPACE KEY
+      case 32: 
+        this.pauseGame();
+        break;
     }
 
     // sprawdzenie wystąpienia kolizji
@@ -327,8 +366,9 @@ export class Tetris extends Component {
       this.mergeTetromino(board);
     }
     // jeżeli przy wykonaniu ruchu nie napotkano na kolizję wyświetlamy nową planszę/ robimy aktualizaję state
-    if (!collided) {
-      if (!this.state.gameOver) {
+    if ( !collided ) {
+      if ( !this.state.gameOver ) {
+       if (  !this.state.gamePaused  ) {
         position = { X: position.X+move.X, Y: position.Y+move.Y, };
         const newBoard = this.drawTetromino(board,rotatedTetromino,position);
         
@@ -337,6 +377,7 @@ export class Tetris extends Component {
           board: newBoard,
           position,
         })
+       }
       }
     }
   }
