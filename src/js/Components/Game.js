@@ -20,15 +20,10 @@ class Game extends Component {
           <Switch>
             <Route exact path={`/`} component={Tetris}/>
             <Route path={`/options`} component={Options}/>
-            <Route path={`/addResult`} component={AddResult}/>
+            <Route path={`/addResult/:points`} component={AddResult}/>
           </Switch>
         </>
       </HashRouter>
-
-      // <div className="game">
-      //   {/* <Tetris /> */}
-      //   <Options results={RESULTS_LIST}/>
-      // </div>
     );
   }
 }

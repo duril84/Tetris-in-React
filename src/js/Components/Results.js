@@ -18,7 +18,7 @@ class Results extends Component {
             {result.name}
           </div>
           <div className="results-result">
-            {result.result}
+            {result.points}
           </div>
         </li>
       )

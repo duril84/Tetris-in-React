@@ -16,7 +16,7 @@ class Buttons extends Component {
             {!pause && <Button className="button options" buttonFN={this.newGame}><FontAwesomeIcon icon="play" /></Button>}
           </div>
           <div className="description">
-            <h1>OPTIONS</h1>
+            <h1>RESULTS</h1>
             <NavLink exact to={`/options`}>
               <Button className="button options" ><FontAwesomeIcon icon="bars" /></Button>
             </NavLink>
