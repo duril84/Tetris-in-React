@@ -25,7 +25,7 @@ export class Tetris extends Component {
 
 
     return (
-      <div tabIndex="0" onKeyUp={e => this.moveTetromino(e)} className="tetris">
+      <div tabIndex="0" onKeyDown={e => this.moveTetromino(e)} className="tetris">
         <Title />
         <div className="board">
           { (this.state.gameOver && !this.state.firstEntry ) ? <GameOver points={this.state.points} newGame={e => this.newGame(e)}/> :(
@@ -62,11 +62,12 @@ export class Tetris extends Component {
   }
 
   findRecord = () => {
-    let max = Store.getValue("users").map( user => { return user.points; }).sort( (a,b)=>{ return b-a } )[0];
-    if ( typeof max === 'undefined' ) {
-      max = 0;
+    const { data } = this.state;
+    let max = 0;
+    if ( data ) {
+       max = data.map( data => data.points ).sort( (a,b)=> b-a )[0];
     }
-    return max
+    return max;
   }
   //-----------------------------------------------------------------------------------------------{ pauseGame }
   pauseGame = e => {
@@ -105,6 +106,15 @@ export class Tetris extends Component {
         gamePaused: false,
       })
     }
+    fetch(`http://localhost:3000/results`)
+      .then(resp => resp.json()) 
+      .then(dataFromApi => {
+          this.setState({
+              data: dataFromApi,
+          })
+      })
+      .catch(err => console.error(err));
+    
   }
 
   //-----------------------------------------------------------------------------------------------{ componentDidMount }

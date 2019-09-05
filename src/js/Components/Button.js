@@ -7,7 +7,7 @@ class Button extends Component {
    // console.log(code);
     if ( Number(code) ) {
       return (
-        <div  className={this.props.className} onClick={e => this.buttonFN(code)}>
+        <div  className={this.props.className} onClick={e => this.buttonFN(code,e)}>
           <div className="button-inner">
             <div className="button-icon">
               { this.props.children }
@@ -17,7 +17,7 @@ class Button extends Component {
         );
     } else {
       return (
-        <div className={this.props.className} onClick={e => this.buttonFN(e)}>
+        <div className={this.props.className} onClick={e => this.buttonFN(null,e)}>
           <div className="button-inner">
             <div className="button-icon">
               { this.props.children }
@@ -27,9 +27,9 @@ class Button extends Component {
       );
     }
   }
-  buttonFN = e => {
+  buttonFN = (fn,e) => {
     if ( typeof this.props.buttonFN === 'function' ) {
-      this.props.buttonFN(e);
+      this.props.buttonFN(fn,e);
     }
   }
 }

@@ -1,0 +1,39 @@
+{
+  "results": [
+    {
+      "name": "Jacek",
+      "age": "35",
+      "email": "jacek.biadacz@gmail.com",
+      "points": "1700",
+      "id": 1
+    },
+    {
+      "name": "Mariusz",
+      "age": "23",
+      "email": "MArio@op.pl",
+      "points": "80",
+      "id": 2
+    },
+    {
+      "name": "Alicja",
+      "age": "15",
+      "email": "Ala@ma.kota",
+      "points": "20",
+      "id": 3
+    },
+    {
+      "name": "Jacek",
+      "age": "35",
+      "email": "mail@dd",
+      "points": "300",
+      "id": 4
+    },
+    {
+      "name": "Kasia",
+      "age": "29",
+      "email": "kate.tro@kl",
+      "points": "960",
+      "id": 5
+    }
+  ]
+}
