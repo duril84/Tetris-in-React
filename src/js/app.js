@@ -5,9 +5,9 @@ import Game from './Components/Game'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
-import { faArrowLeft, faArrowRight, faArrowDown, faArrowUp, faRedo, faUndo, faPlay, faPause, faBars, faSave } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faArrowRight, faArrowDown, faArrowUp, faRedo, faUndo, faPlay, faPause, faBars, faSave, faStar } from '@fortawesome/free-solid-svg-icons'
 
-library.add(fab, faArrowLeft, faArrowRight, faArrowDown, faArrowUp, faRedo, faUndo,  faPlay, faPause, faBars, faSave)
+library.add(fab, faArrowLeft, faArrowRight, faArrowDown, faArrowUp, faRedo, faUndo,  faPlay, faPause, faBars, faSave, faStar)
 
 
 class App extends Component {

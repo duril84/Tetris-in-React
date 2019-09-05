@@ -34,6 +34,13 @@
       "email": "kate.tro@kl",
       "points": "960",
       "id": 5
+    },
+    {
+      "name": "Karol",
+      "age": "24",
+      "email": "grt@",
+      "points": "200",
+      "id": 6
     }
   ]
 }

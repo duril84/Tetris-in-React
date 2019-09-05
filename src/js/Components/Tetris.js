@@ -6,7 +6,6 @@ import Displays from './Displays';
 import Board from './Board';
 import Title from './Title';
 import GameOver from './GameOver';
-import Store from "../Store/Store";
 
 export class Tetris extends Component {
   state = { 

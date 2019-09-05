@@ -13,7 +13,7 @@ class Buttons extends Component {
         <div className="buttons top-section">
           <div className="description">
             <h1>START</h1>
-            {!pause && <Button className="button options" buttonFN={this.newGame}><FontAwesomeIcon icon="play" /></Button>}
+            {!pause && <Button className="button options" buttonFN={this.newGame}><FontAwesomeIcon icon="star" /></Button>}
           </div>
           <div className="description">
             <h1>RESULTS</h1>
@@ -23,7 +23,9 @@ class Buttons extends Component {
           </div>
           <div className="description">
             <h1>PAUSE</h1>
-            <Button className="button options" buttonFN={ !this.isOver() &&  this.pauseGame}><FontAwesomeIcon icon="pause" /></Button>
+            <Button className="button options" buttonFN={ !this.isOver() &&  this.pauseGame}>
+              { !this.isPaused() ? <FontAwesomeIcon icon="pause" /> :  <FontAwesomeIcon icon="play" />}
+            </Button>
           </div>
         </div>
         <div className="buttons bottom-section">
