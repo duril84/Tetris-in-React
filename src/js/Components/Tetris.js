@@ -6,6 +6,12 @@ import Displays from './Displays';
 import Board from './Board';
 import Title from './Title';
 import GameOver from './GameOver';
+import soundFile from '../../Sounds/Tetris.mp3'
+import soundFall from '../../Sounds/fall.wav'
+
+
+
+
 
 export class Tetris extends Component {
   state = { 
@@ -18,7 +24,25 @@ export class Tetris extends Component {
     record: 987654,
     gameOver: true,
     gamePaused: false,
+    sound: new Audio(soundFile),
+    sound2: new Audio(soundFall),
+    play: true,
   }
+
+  soundToggle(){
+    if ( !this.state.play ) {
+      this.state.sound.play();
+    } else {
+      this.state.sound.pause();
+    }
+    this.setState({
+      play: !this.state.play,
+    })
+    console.log('click');
+    console.log(this.state.play);
+  }
+
+
 
   render() { 
 
@@ -40,6 +64,7 @@ export class Tetris extends Component {
             pauseGame={e => this.pauseGame(e)}
             isPaused={e => this.isPaused(e)}
             isOver={e => this.isOver(e)}
+            soundToggle={e => this.soundToggle(e)}
             />
       </div>
     );
@@ -56,7 +81,12 @@ export class Tetris extends Component {
       level: 1,
       gameOver: false,
       gamePaused: false,
+      play: true,
     })
+    this.state.sound.pause();
+    this.state.sound.currentTime = 0;
+    this.state.sound.loop = true;
+    this.state.sound.play();
     this.gameLoop();
   }
 
@@ -73,6 +103,10 @@ export class Tetris extends Component {
     this.setState({
       gamePaused: !this.state.gamePaused,
     })
+    this.state.sound.pause();
+    if ( this.state.gamePaused ) {
+      this.state.sound.play();
+    }
     this.gameLoop();
   }
 
@@ -125,6 +159,7 @@ export class Tetris extends Component {
     // zmiana prędkości zależnie od levelu
     const level = this.state.level;
     const speed = 1100 - level*100;
+    console.log(speed);
     const move = {X: 0, Y:+1};
     // zainiaclizowanie pętli gry (uruchomienie)
     
@@ -144,6 +179,7 @@ export class Tetris extends Component {
       // jeżeli wwstąpiłą kolizja po przesunięciu klocka w dół scalamy go z planszą
       if ( collided ) {
         this.mergeTetromino(board);
+        this.state.sound2.play();
       }
       // jeżeli przy wykonaniu ruchu nie napotkano na kolizję wyświetlamy nową planszę/ robimy aktualizaję state
       if (!collided) {
@@ -163,6 +199,7 @@ export class Tetris extends Component {
 
   //-----------------------------------------------------------------------------------------------{ componentWillUnmount }
   componentWillUnmount(){
+    this.state.sound.pause();
     clearInterval(this.gameLoopID);
   }
  
@@ -233,6 +270,7 @@ export class Tetris extends Component {
     // co 250 punktów zwiększamy level
     if ( Math.floor(points/250) + 1 > level  ) {
       level++;
+      this.gameLoop();
     }
     // jeżeli są wiersze do usunięcia tworzymy nową tablicę wierszy i ją zwracamy
     const newBoard = [];
@@ -262,6 +300,7 @@ export class Tetris extends Component {
   //-----------------------------------------------------------------------------------------------{ mergeTetromino }
   // funkcja scalająca tetromino z planszą po wykryciu kolizji przy ruchu w dół
   mergeTetromino(board) {
+    this.state.sound2.play();
     board.forEach( (row,Y) => {
       row.forEach( (cell,X) => {
         if ( board[Y][X][0] !== 0 ) {
@@ -283,6 +322,7 @@ export class Tetris extends Component {
       this.setState({
         gameOver: true,
       })
+      this.state.sound.pause();
     } else {
       // aktualizacja state
       board = this.drawTetromino( board, currentTetromino, position);
@@ -292,6 +332,7 @@ export class Tetris extends Component {
         currentTetromino,
       })
     }
+    
   }
 
   //-----------------------------------------------------------------------------------------------{ detectCollision }
@@ -389,6 +430,7 @@ export class Tetris extends Component {
     // jeżeli wwstąpiłą kolizja po przesunięciu klocka w dół scalamy go z planszą
     if ( collided && e.keyCode === 40 ) {
       this.mergeTetromino(board);
+      this.state.sound2.play();
     }
     // jeżeli przy wykonaniu ruchu nie napotkano na kolizję wyświetlamy nową planszę/ robimy aktualizaję state
     if ( !collided ) {
