@@ -1,13 +1,19 @@
 
-$color-game: #2d2c2d; // #ebff46; 
+//$color-game:#034674;// #2d2c2d; // #ebff46; 
+
 $color-button-border: #ecd815;
 $color-board-background: #9cae86;
 $color-board-border: #323a2c;
 $color-board-text: #000000;
 
-$color-tetris-text: #808080;
+$color-tetris-text: #dfdfdf;
 
 $color-display: #ffffff;
+
+
+$color-game-primary: rgb(41, 50, 175);
+$color-game-secondary: rgb(0, 3, 39);
+$color-game: linear-gradient(to bottom, $color-game-primary 0%, $color-game-secondary);
 
 $color-button-gradient-1: linear-gradient(to bottom, rgba(158,158,158,1) 0%, rgba(237,237,237,1) 100%);
 $color-button-gradient-2: linear-gradient(to bottom, rgba(237,237,237,1) 0%, rgba(158,158,158,1) 100%);

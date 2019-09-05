@@ -1,0 +1,39 @@
+.add {
+  width: 100%;
+  height: 100%;
+  font-family: $font-digital;
+  font-size: $font-digital-size*0.5;
+  color: $color-board-text;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .add-container {
+    width: 100%;
+    height: 33%;
+    padding: 2rem 0rem;
+    font-family: $font-digital;
+    font-size: $font-digital-size*0.5;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .error {
+    padding-top: 1rem;
+    width: 90%;
+    font-size: $font-digital-size*0.5;
+    text-align: center;
+    color: crimson;
+  }
+  .name {
+    width: 90%;
+    font-family: $font-digital;
+    font-size: $font-digital-size*1;
+    color: $color-board-text;
+    background-color: darken($color-board-background, 10%);
+    border: 5px solid $color-board-border;
+    text-align: center;
+  }
+}
