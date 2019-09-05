@@ -4,7 +4,6 @@ import Button from './Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {NavLink} from "react-router-dom";
 import Inputs from './Inputs';
-import Store from "../Store/Store";
 
 class AddResult extends Component {
   state = {
@@ -40,9 +39,9 @@ class AddResult extends Component {
       [e.target.name]: e.target.value,
     })
   }
-  send = e => {
-    // e.preventDefault();
-    console.log('save');
+  send = (fn,e) => {
+   // e.preventDefault();
+    // console.log('save');
     const errors = [];
     let numbersOferrors = 0;
     const { name, email, age } = this.state;
@@ -62,25 +61,43 @@ class AddResult extends Component {
       errors,
     })
     if ( numbersOferrors <= 0 ) {
-      this.addUser();
-      window.location = '/';
+      new Promise((resolve) => {
+        this.addResult(resolve);
+      }).then(() => {
+        window.location = '/';
+      });
     }
   }
 
-  addUser = () => {
+  addResult = (resolve) => {
     const { name, age, email } = this.state;
     const points = this.props.match.params.points;
-    //Pobieram aktualną listę userów
-    //jak jeszcze nie była utworzona, to tworze pustą tablice
-    const oldUsers = Store.getValue("users");
-    //i dorzucam do nich nowego
-    //id tworzone trochę na Janusza :)
-    const users = [
-      ...oldUsers,
-      { name, age, email, points, id: oldUsers.length + 1 }
-    ];
-    //a teraz zapisuję nową listę do Store'a
-    Store.setValue("users", users);
+   
+    const result = {
+      name: name,
+      age: age,
+      email: email,
+      points: points,
+    }
+
+    fetch("http://localhost:3000/results",
+    {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify( result )
+    })
+    .then(function(res){ 
+      if(resolve){
+        resolve();
+      }
+      return res.json();
+    })
+    .catch(function(res){ 
+      console.log(res) 
+    })
   }
 
 }

@@ -8,11 +8,11 @@ class GameOver extends Component {
     return (
       <div className="game-over">
         <div className="title">GAME OVER</div>
-        <div className="question">Add result ?</div>
-        <div className="points">{points} points</div>
-        <div className="buttons-container">
-        { points > 0 ? (
-            <>
+          { points > 0 ? (
+          <>
+           <div className="question">Add result ?</div>
+           <div className="points">{points} points</div>
+           <div className="buttons-container">
               <NavLink exact to={`/addResult/${points}`}>
                 <div>Yes</div>
               </NavLink>
@@ -20,9 +20,10 @@ class GameOver extends Component {
                 <div>No</div>
                 <div>New Game</div>
               </div> 
-            </>
+            </div>
+          </>
           ) :  <div onClick={e=>this.newGame(e)} >New Game</div> }
-        </div>
+        
       </div>
     );
   }
