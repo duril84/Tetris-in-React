@@ -3,8 +3,10 @@ import Button from './Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {NavLink} from "react-router-dom";
 
+
+
 class Buttons extends Component {
-  state = {  }
+ 
   render() {
     const pause = this.props.pause;
     //console.log(pause);
@@ -13,7 +15,7 @@ class Buttons extends Component {
         <div className="buttons top-section">
           <div className="description">
             <h1>START</h1>
-            {!pause && <Button className="button options" buttonFN={this.newGame}><FontAwesomeIcon icon="play" /></Button>}
+            {!pause && <Button className="button options" buttonFN={this.newGame}><FontAwesomeIcon icon="star" /></Button>}
           </div>
           <div className="description">
             <h1>RESULTS</h1>
@@ -22,8 +24,14 @@ class Buttons extends Component {
             </NavLink>
           </div>
           <div className="description">
+            <h1 onClick={this.onToggle} >SOUND</h1>
+            <Button className="button options" buttonFN={ !this.isOver() && !this.isPaused() &&  this.soundToggle}><FontAwesomeIcon icon="volume-mute" /></Button>
+          </div>
+          <div className="description">
             <h1>PAUSE</h1>
-            <Button className="button options" buttonFN={ !this.isOver() &&  this.pauseGame}><FontAwesomeIcon icon="pause" /></Button>
+            <Button className="button options" buttonFN={ !this.isOver() &&  this.pauseGame}>
+              { !this.isPaused() ? <FontAwesomeIcon icon="pause" /> :  <FontAwesomeIcon icon="play" />}
+            </Button>
           </div>
         </div>
         <div className="buttons bottom-section">
@@ -43,7 +51,11 @@ class Buttons extends Component {
       </div>
     );
   }
-
+  soundToggle = e => {
+    if ( typeof this.props.soundToggle === 'function' ) {
+      this.props.soundToggle(e);
+    }
+  }
   newGame = e => {
     if ( typeof this.props.newGame === 'function' ) {
       this.props.newGame(e);

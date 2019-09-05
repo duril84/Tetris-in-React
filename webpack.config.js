@@ -78,6 +78,17 @@ module.exports = {
           }
         }
       },
+      {
+        test: /\.(mp3|wav)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',  // definiuje jak mają się nazywać pliki w ./dist
+            publicPath: 'sounds', // dodaj do ścieżki w kodzie
+            outputPath: 'sounds', // ścieżka kopiowania obrazów
+          }
+        }
+      },
     ]
   },
 
