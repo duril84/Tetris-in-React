@@ -11,13 +11,17 @@ class GameOver extends Component {
         <div className="question">Add result ?</div>
         <div className="points">{points} points</div>
         <div className="buttons-container">
-          <NavLink exact to={`/addResult`}>
-            <div>Yes</div>
-          </NavLink>
-          <div className="answerNO" onClick={e=>this.newGame(e)}>
-            <div>No</div>
-            <div>New Game</div>
-          </div>
+        { points > 0 ? (
+            <>
+              <NavLink exact to={`/addResult/${points}`}>
+                <div>Yes</div>
+              </NavLink>
+              <div className="answerNO" onClick={e=>this.newGame(e)} >
+                <div>No</div>
+                <div>New Game</div>
+              </div> 
+            </>
+          ) :  <div onClick={e=>this.newGame(e)} >New Game</div> }
         </div>
       </div>
     );

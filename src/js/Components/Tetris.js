@@ -6,13 +6,15 @@ import Displays from './Displays';
 import Board from './Board';
 import Title from './Title';
 import GameOver from './GameOver';
+import Store from "../Store/Store";
 
 export class Tetris extends Component {
   state = { 
     board: [...Array(BOARD_HEIGHT).fill([...Array(BOARD_LENGTH).fill([0,'clear'])])],
     position: { X: Math.floor(BOARD_LENGTH/2)-2, Y: 0, },
     currentTetromino: randomTetromino(),
-    points: 20,
+    points: -1,
+    firstEntry: true,
     level: 1,
     record: 987654,
     gameOver: true,
@@ -20,15 +22,18 @@ export class Tetris extends Component {
   }
 
   render() { 
+
+
     return (
       <div tabIndex="0" onKeyUp={e => this.moveTetromino(e)} className="tetris">
         <Title />
         <div className="board">
-          { (this.state.gameOver && this.state.points > 0) ? <GameOver points={this.state.points} newGame={e => this.newGame(e)}/> : <>
-          <Board BOARD_HEIGHT={BOARD_HEIGHT} BOARD_LENGTH={BOARD_LENGTH} board={this.state.board} />
-          <Displays points={this.state.points} level={this.state.level} record={this.state.record} />
-          </>
-          }
+          { (this.state.gameOver && !this.state.firstEntry ) ? <GameOver points={this.state.points} newGame={e => this.newGame(e)}/> :(
+            <>
+              <Board BOARD_HEIGHT={BOARD_HEIGHT} BOARD_LENGTH={BOARD_LENGTH} board={this.state.board} />
+              <Displays points={this.state.points} level={this.state.level} record={this.findRecord()} />
+            </>
+          )}
         </div>
         <Buttons
             newGame={e => this.newGame(e)}
@@ -48,6 +53,7 @@ export class Tetris extends Component {
       position: { X: Math.floor(BOARD_LENGTH/2)-2, Y: -1, },
       currentTetromino: randomTetromino(),
       points: 0,
+      firstEntry: false,
       level: 1,
       gameOver: false,
       gamePaused: false,
@@ -55,6 +61,13 @@ export class Tetris extends Component {
     this.gameLoop();
   }
 
+  findRecord = () => {
+    let max = Store.getValue("users").map( user => { return user.points; }).sort( (a,b)=>{ return b-a } )[0];
+    if ( typeof max === 'undefined' ) {
+      max = 0;
+    }
+    return max
+  }
   //-----------------------------------------------------------------------------------------------{ pauseGame }
   pauseGame = e => {
     this.setState({
@@ -87,6 +100,7 @@ export class Tetris extends Component {
       this.setState({
         board,
         position,
+        points: 0,
         gameOver: true,
         gamePaused: false,
       })

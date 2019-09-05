@@ -7,7 +7,7 @@ class Displays extends Component {
     return (
       <div className="displays">
        <Display title="RECORD" value={this.props.record}/>
-       <Display title="POINTS" value={this.props.points}/>
+       <Display title="POINTS" value={ this.props.points === -1 ? 0 : this.props.points}/>
        <Display title="LEVEL" value={this.props.level}/>
       </div>
     );
