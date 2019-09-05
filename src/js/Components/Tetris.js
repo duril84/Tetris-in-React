@@ -5,13 +5,14 @@ import Buttons from './Buttons';
 import Displays from './Displays';
 import Board from './Board';
 import Title from './Title';
+import GameOver from './GameOver';
 
 export class Tetris extends Component {
   state = { 
     board: [...Array(BOARD_HEIGHT).fill([...Array(BOARD_LENGTH).fill([0,'clear'])])],
     position: { X: Math.floor(BOARD_LENGTH/2)-2, Y: 0, },
     currentTetromino: randomTetromino(),
-    points: 0,
+    points: 20,
     level: 1,
     record: 987654,
     gameOver: true,
@@ -23,8 +24,11 @@ export class Tetris extends Component {
       <div tabIndex="0" onKeyUp={e => this.moveTetromino(e)} className="tetris">
         <Title />
         <div className="board">
+          { (this.state.gameOver && this.state.points > 0) ? <GameOver points={this.state.points} newGame={e => this.newGame(e)}/> : <>
           <Board BOARD_HEIGHT={BOARD_HEIGHT} BOARD_LENGTH={BOARD_LENGTH} board={this.state.board} />
           <Displays points={this.state.points} level={this.state.level} record={this.state.record} />
+          </>
+          }
         </div>
         <Buttons
             newGame={e => this.newGame(e)}

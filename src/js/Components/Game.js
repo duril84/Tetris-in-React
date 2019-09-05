@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Tetris from './Tetris';
 import Options from './Options';
+import AddResult from './AddResult';
 import {
   HashRouter,
   Switch,
@@ -17,9 +18,9 @@ class Game extends Component {
       <HashRouter>
         <>
           <Switch>
-            {/* <Route path={`/`} component={Home}/> */}
             <Route exact path={`/`} component={Tetris}/>
             <Route path={`/options`} component={Options}/>
+            <Route path={`/addResult`} component={AddResult}/>
           </Switch>
         </>
       </HashRouter>

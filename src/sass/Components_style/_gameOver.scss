@@ -1,0 +1,37 @@
+.game-over{
+  width: 100%;
+  height: 100%;
+  font-family: $font-digital;
+  font-size: $font-digital-size;
+  color: $color-board-text;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  .title {
+    font-size: $font-digital-size*1.5;
+    font-weight: 600;
+  }
+  .question {
+    
+  }
+  .points {
+    font-size: $font-digital-size*0.75;
+    font-weight: 600;
+  }
+  .buttons-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    .answerNO {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      :nth-child(2) {
+        font-size: $font-digital-size*0.5;
+      }
+    }
+  }
+}
