@@ -9,7 +9,6 @@ class Buttons extends Component {
  
   render() {
     const pause = this.props.pause;
-    //console.log(pause);
     return (
       <div className="buttons">
         <div className="buttons top-section">
@@ -25,7 +24,9 @@ class Buttons extends Component {
           </div>
           <div className="description">
             <h1 onClick={this.onToggle} >SOUND</h1>
-            <Button className="button options" buttonFN={ !this.isOver() && !this.isPaused() &&  this.soundToggle}><FontAwesomeIcon icon="volume-mute" /></Button>
+            <Button className="button options" buttonFN={ !this.isOver() && !this.isPaused() &&  this.soundToggle}>
+              { this.isSound() ? <FontAwesomeIcon icon="volume-mute" /> :  <FontAwesomeIcon icon="volume-up" />}
+            </Button>
           </div>
           <div className="description">
             <h1>PAUSE</h1>
@@ -79,6 +80,11 @@ class Buttons extends Component {
   isOver= e => {
     if ( typeof this.props.isOver === 'function' ) {
       return this.props.isOver(e);
+    }
+  }
+  isSound = e => {
+    if ( typeof this.props.isSound === 'function' ) {
+      return this.props.isSound(e);
     }
   }
 }

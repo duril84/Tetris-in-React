@@ -96,7 +96,11 @@
       transform: scale(2, 6);
     }
   }
- 
+
+  &.small {
+    transform: scale(1.25);
+  }
+
   &.big {
     border-radius: 50%;
     transform: scale(2);
