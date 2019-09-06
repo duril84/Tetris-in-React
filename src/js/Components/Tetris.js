@@ -20,7 +20,7 @@ export class Tetris extends Component {
     currentTetromino: randomTetromino(),
     points: -1,
     firstEntry: true,
-    level: 1,
+    level: 0,
     record: 987654,
     gameOver: true,
     gamePaused: false,
@@ -38,8 +38,8 @@ export class Tetris extends Component {
     this.setState({
       play: !this.state.play,
     })
-    console.log('click');
-    console.log(this.state.play);
+    //console.log('click');
+    //console.log(this.state.play);
   }
 
 
@@ -64,6 +64,7 @@ export class Tetris extends Component {
             pauseGame={e => this.pauseGame(e)}
             isPaused={e => this.isPaused(e)}
             isOver={e => this.isOver(e)}
+            isSound={e => this.isSound(e)}
             soundToggle={e => this.soundToggle(e)}
             />
       </div>
@@ -103,9 +104,16 @@ export class Tetris extends Component {
     this.setState({
       gamePaused: !this.state.gamePaused,
     })
+    // if ( this.isSound() ) {
+    //   this.state.sound.play();
+    // } else {
+    //   this.state.sound.pause();
+    // }
     this.state.sound.pause();
     if ( this.state.gamePaused ) {
-      this.state.sound.play();
+      if ( this.isSound() ) {
+        this.state.sound.play();
+      }
     }
     this.gameLoop();
   }
@@ -119,7 +127,10 @@ export class Tetris extends Component {
   isOver = e => {
     return this.state.gameOver;
   }
-
+  //-----------------------------------------------------------------------------------------------{ isSound }
+  isSound = e => {
+    return this.state.play;
+  }
   //-----------------------------------------------------------------------------------------------{ componentDidMount }
   componentDidMount() {
     if ( this.state.gameOver ) {
@@ -159,7 +170,7 @@ export class Tetris extends Component {
     // zmiana prędkości zależnie od levelu
     const level = this.state.level;
     const speed = 1100 - level*100;
-    console.log(speed);
+    //console.log(speed);
     const move = {X: 0, Y:+1};
     // zainiaclizowanie pętli gry (uruchomienie)
     
