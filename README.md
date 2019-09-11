@@ -1,14 +1,14 @@
 # Tetris-in-React
 Implementation of Tetris in React
-
+https://github.com/duril84/Tetris-in-React/blob/development/game_screen.png
 --------------------------------
 
-###Technologies used :
+# Technologies used :
 - JavaScript (ECMAScript 6)
 - React.js
 - Sass
 
-###Instruction:
+# Instruction:
 In the directory with the downloaded repository
 
 - git clone https://github.com/duril84/Tetris-in-React.git
@@ -21,6 +21,6 @@ In the directory with the downloaded repository
 In your browser, open http://localhost:3001/#/
 
 --------------------------------
-###Author
+# Author
 J A C E K 
 B I A D A C Z
