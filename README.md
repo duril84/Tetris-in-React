@@ -1,6 +1,7 @@
 # Tetris-in-React
 Implementation of Tetris in React
-https://github.com/duril84/Tetris-in-React/blob/development/game_screen.png
+
+![alt text](https://github.com/duril84/Tetris-in-React/blob/development/game_screen.png)
 --------------------------------
 
 # Technologies used :
