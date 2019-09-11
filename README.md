@@ -1,7 +1,7 @@
 # Tetris-in-React
 Implementation of Tetris in React
 
-###--------------------------------
+--------------------------------
 
 ###Technologies used :
 - JavaScript (ECMAScript 6)
@@ -20,7 +20,7 @@ In the directory with the downloaded repository
  
 In your browser, open http://localhost:3001/#/
 
-###--------------------------------
+--------------------------------
 ###Author
 J A C E K 
 B I A D A C Z
