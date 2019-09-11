@@ -10,10 +10,12 @@ Implementation of Tetris in React
 - Sass
 
 # Instruction:
-In the directory with the downloaded repository
-
+Clone repository
 - git clone https://github.com/duril84/Tetris-in-React.git
+
+In the directory with the downloaded repository
 - npm i
+- git checkout development 
 - first terminal:
  - npm start
 - second terminal:
@@ -23,5 +25,4 @@ In your browser, open http://localhost:3001/#/
 
 --------------------------------
 # Author
-J A C E K 
-B I A D A C Z
+JACEK BIADACZ
